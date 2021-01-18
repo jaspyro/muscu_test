@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} inscription {% endblock %}
+{% block titrePage %} inscription {% endblock %}
+{% block body %}
+<h1>inscription au site</h1>
+
+    {{ form_start(formuser) }}
+        {{ form_widget(formuser) }}
+        <button class="btn btn_lg btn-primary">Ajouter</button>
+    {{ form_end(formuser) }}
+    <br>
+    <a href="/">accueil</a>
+
+{% endblock %}

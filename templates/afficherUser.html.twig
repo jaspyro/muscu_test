@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} connexion {% endblock %}
+{% block titrePage %} Connexion a un compte existant {% endblock %}
+{% block body %}
+    <h1>Liste des personnes inscrites :</h1>
+    <br>
+    <h3>Utilisateur</h3>
+    <h3>administrateur</h3>
+    <table class="table">
+        <thead>
+        <tr class="table-primary text-center">
+            <th>pseudonyme</th>
+            <th>adresse email</th>
+            <th>-</th>
+            <th>
+                Passer Redacteur
+                <br>
+                Passer Utilisateur
+            </th>
+        </tr>
+        </thead>
+        {% for user in user %}
+            <tr class="text-center">
+                {% if user.roles == ["admin"] %}
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td><p>|</p></td>
+                <td>
+                    <a href="{{ path('passer_redac', {'id' : user.id}) }}" class="btn-lg btn-primary">Passer Redacteur</a>
+                    <hr>
+                    <a href="{{ path('passer_user',{'id': user.id}) }}" class="btn-lg btn-primary">Passer Utilisateur</a>
+                </td>
+            </tr>
+                {% endif %}
+        {% endfor %}
+
+    </table>
+    <br>
+    <hr>
+    <br>
+    <h3>redacteur</h3>
+    <table class="table">
+        <thead>
+        <tr class="table-primary text-center">
+            <th>pseudonyme</th>
+            <th>adresse email</th>
+            <th><p>-</p></th>
+            <th>
+                Passer Administrateur
+                <br>
+                Passer Utilisateur
+            </th>
+        </tr>
+        </thead>
+        {% for user in user %}
+            <tr class="text-center">
+            {%  if (user.roles == ["redac"])  %}
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td><p>|</p></td>
+                <td>
+                    <a href="{{ path('passer_admin', {'id' : user.id}) }}" class="btn-lg btn-primary">Passer Administrateur</a>
+                    <br>
+                    <hr>
+                    <br>
+                    <a href="{{ path('passer_user',{'id': user.id}) }}" class="btn-lg btn-primary">Passer Utilisateur</a>
+                </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    <br>
+    <hr>
+    <br>
+    <h3>Utilisateur</h3>
+    <table class="table">
+        <thead>
+        <tr class="table-primary text-center">
+            <th>pseudonyme</th>
+            <th>adresse email</th>
+            <th><p>-</p></th>
+            <th>
+                Passer Administrateur
+                <br>
+                Passer Utilisateur
+            </th>
+            <th>suprimer</th>
+        </tr>
+        </thead>
+        {% for user in user %}
+            <tr class="text-center">
+            {%  if (user.roles == ["user"])  %}
+                <td>{{ user.username}}</td>
+                <td>{{ user.email }}</td>
+                <td><p>|</p></td>
+                <td>
+                    <a href="{{ path('passer_admin', {'id' : user.id}) }}" class="btn-lg btn-primary">Passer Administrateur</a>
+                    <br>
+                    <hr>
+                    <br>
+                    <a href="{{ path('passer_redac',{'id': user.id}) }}" class="btn-lg btn-primary">Passer Redacteur</a>
+                </td>
+                <td>
+                    <form method="post" style="display: inline-block" action="{{ path('suprimer_user', {'id' : user.id}) }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('DELETE' ~ user.id) }}">
+                        <input type="submit" class="btn btn_danger" value="Suprimer">
+                    </form>
+                </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}

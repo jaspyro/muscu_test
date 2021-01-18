@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} nos offre {% endblock %}
+
+{% block body %}
+
+    <h1>éditeur d'Offre</h1>
+
+    <p>créer une offre :</p>
+    {{ form_start(formOffre) }}
+        {{ form_row(formOffre.nomOffre,{
+            label: 'nommer l\'Offre :'
+        }) }}
+        {{ form_row(formOffre.descriptionOffre,{
+            label: 'description de l\'Offre :'
+        }) }}
+        {{ form_row(formOffre.PrixOffre,{
+            label: 'prix de l\'Offre :'
+        }) }}
+        {{ form_row(formOffre.imageOffre,{
+            label: 'image illustrant l\'offre :'
+        }) }}
+        {{ form_row(formOffre.imageDescription,{
+            label: 'description de l\'image (sert pour les non voyant) :'
+        }) }}
+        {{ form_row(formOffre.reduction,{
+            label: 'pourcentage de réduction sur le prix de l\'offre originel :'
+        }) }}
+        <button class="btn btn_lg btn-primary">Valider l'offre</button>
+    {{ form_end(formOffre) }}
+    <hr>
+
+    {% if (offres != null) %}
+
+    <p>Les offres publier :</p>
+        {% for offre in offres %}
+            <br>
+            <hr>
+            {{ offre.id }}
+            <br>
+    <div class="card" style="width: 18rem;">
+        <p class="card-text">l'image: {{ offre.imageOffre }} sa desription : {{ offre.imageDescription }}</p>
+        <div class="card-body">
+            <h5 class="card-title">{{ offre.nomOffre }}</h5>
+            <p class="card-text">{{ offre.descriptionOffre }}</p>
+            <p class="card-text">{{ offre.PrixOffre}} </p>
+        </div>
+
+        <a href="{{ path('#', {'id' : offre.id }) }}" class="btn-lg btn-primary">changer offre</a>
+        <!-- href = path('nom route', {'id' : offre.id} -->
+
+        <form method="post" style="display: inline-block" action="{{ path('suprimer_offre', {'id' : offer.id}) }}">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="_token" value="{{ csrf_token('DELETE' ~ offre.id) }}">
+            <input type="submit" class="btn btn_danger" value="Suprimer">
+        </form>
+    </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

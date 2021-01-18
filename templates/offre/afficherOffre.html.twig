@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} nos offre {% endblock %}
+
+{% block body %}
+
+    <h1>Nos offre :</h1>
+        {% for offre in offres %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{ Offre.imageOffre }}" class="card-img-top" alt="{{ imageDescritpion }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ Offre.nomOffre }}</h5>
+            <p class="card-text">{{ Offre.descriptionOffre }}</p>
+            <p class="card-text">{{ Offre.PrixOffre}} euros</p>
+        </div>
+        <a href="{{ path('#', {'id' : offre.id }) }}" class="btn-lg btn-primary">acceder a l'offre</a>
+        <!-- href = path('nom route', {'id' : offre.id} -->
+    </div>
+        {% endfor %}
+
+{% endblock %}

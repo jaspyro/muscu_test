@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} accueil {% endblock %}
+
+{% block body %}
+
+    <h1>Insciption</h1>
+    <br>
+    <p>1- Inscription</p>
+    <hr>
+    <p>2- gerer utilisateur</p>
+    <hr>
+    <p>3- login/logout</p>
+    <hr>
+    <p>4- test page accessible selon role</p>
+    <hr>
+    <p>5- gérer/afficher une offre</p>
+    <hr>
+    <br>
+
+    {% if app.user %}
+    <p>connecter en tant que : {{ app.user.username }} </p>
+    <p>vous avez le role : {{ app.user.roles| join(',') }}</p>
+    {% else %}
+    <p>non connecter</p>
+    {% endif %}
+
+{% endblock %}

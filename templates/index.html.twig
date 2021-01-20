@@ -20,7 +20,6 @@
 
     {% if app.user %}
     <p>connecter en tant que : {{ app.user.username }} </p>
-    <p>vous avez le role : {{ app.user.roles| join(',') }}</p>
     {% else %}
     <p>non connecter</p>
     {% endif %}

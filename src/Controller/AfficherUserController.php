@@ -66,7 +66,7 @@ class AfficherUserController extends AbstractController
         $User = $repository->find($id);
 
         try {
-            $User->setRoles(["admin"]);
+            $User->setRoles(["ROLE_ADMIN"]);
             $manager->persist($User);
             $manager->flush();
         } catch (\exception $exception)
@@ -85,7 +85,7 @@ class AfficherUserController extends AbstractController
         $User = $repository->find($id);
 
         try {
-            $User->setRoles(["redac"]);
+            $User->setRoles(["ROLE_REDAC"]);
             $manager->persist($User);
             $manager->flush();
         } catch (\exception $exception)
@@ -104,7 +104,7 @@ class AfficherUserController extends AbstractController
         $User = $repository->find($id);
 
         try {
-            $User->setRoles(["user"]);
+            $User->setRoles(["ROLE_USER"]);
             $manager->persist($User);
             $manager->flush();
         } catch (\exception $exception)

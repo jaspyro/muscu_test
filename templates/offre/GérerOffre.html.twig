@@ -31,31 +31,31 @@
     <hr>
 
     {% if (offres != null) %}
-
+    <p>aucune offre créer, veuiller en créer une !</p>
+    {% else%}
     <p>Les offres publier :</p>
+        <div class="row">
         {% for offre in offres %}
-            <br>
-            <hr>
-            {{ offre.id }}
-            <br>
     <div class="card" style="width: 18rem;">
         <p class="card-text">l'image: {{ offre.imageOffre }} sa desription : {{ offre.imageDescription }}</p>
-        <div class="card-body">
+        <div class="card-body" style="text-align: center;color: white;background-color: black">
             <h5 class="card-title">{{ offre.nomOffre }}</h5>
             <p class="card-text">{{ offre.descriptionOffre }}</p>
-            <p class="card-text">{{ offre.PrixOffre}} </p>
+            <p class="card-text" >{{ offre.PrixOffre}}€ </p>
         </div>
-
-        <a href="{{ path('#', {'id' : offre.id }) }}" class="btn-lg btn-primary">changer offre</a>
+        <div class="card-body" style="text-align: center">
+        <a href="{{ path('GérerOffre', {'id' : offre.id }) }}" >changer offre</a>
         <!-- href = path('nom route', {'id' : offre.id} -->
 
-        <form method="post" style="display: inline-block" action="{{ path('suprimer_offre', {'id' : offer.id}) }}">
+        <form method="post" style="display: inline-block" action="{{ path('suprimer_offre', {'id' : offre.id}) }}">
             <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="_token" value="{{ csrf_token('DELETE' ~ offre.id) }}">
-            <input type="submit" class="btn btn_danger" value="Suprimer">
+            <input type="submit"  value="Suprimer">
         </form>
+        </div>
     </div>
         {% endfor %}
+        </div>
     {% endif %}
 
 {% endblock %}

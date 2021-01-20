@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Offre;
 use App\Form\OffreType;
 use App\Repository\OffreRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class OffreController extends AbstractController
 {
     /**
-     * @Route("/Gérer_offre", name="GérerOffre")
+     * @Route("/redac/Gérer_offre", name="GérerOffre")
      */
     public function gererOffre(Request $request, OffreRepository $repository)
     {
@@ -61,6 +62,24 @@ class OffreController extends AbstractController
             'formOffre' => $formOffre->createView(),
             'offres' => $Offre
         ]);
+    }
+    /**
+     * @Route("/supr/{id}", name="suprimer_offre", methods={"DELETE", "GET"})
+     */
+    public function suprimer(OffreRepository $repository,$id,EntityManagerInterface $manager,Request $request)
+    {
+        $offre = $repository->find($id);
 
+        if ($this->isCsrfTokenValid('DELETE'.$offre->getId(), $request->request->get('_token')))
+        {
+            $manager->remove($offre);
+            $manager->flush();
+
+            return $this->redirectToRoute('GérerOffre.html.twig');
+        }
+        else
+        {
+            return $this->redirectToRoute('GérerOffre.html.twig');
+        }
     }
 }

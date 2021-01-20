@@ -7,14 +7,16 @@
     <h1>Nos offre :</h1>
         {% for offre in offres %}
     <div class="card" style="width: 18rem;">
-        <img src="{{ Offre.imageOffre }}" class="card-img-top" alt="{{ imageDescritpion }}">
+        <p class="card-text">l'image: {{ offre.imageOffre }} sa desription : {{ offre.imageDescription }}</p>
         <div class="card-body">
-            <h5 class="card-title">{{ Offre.nomOffre }}</h5>
-            <p class="card-text">{{ Offre.descriptionOffre }}</p>
-            <p class="card-text">{{ Offre.PrixOffre}} euros</p>
+            <h5 class="card-title">{{ offre.nomOffre }}</h5>
+            <p class="card-text">{{ offre.descriptionOffre }}</p>
+            <p class="card-text">{{ offre.PrixOffre}} euros</p>
         </div>
-        <a href="{{ path('#', {'id' : offre.id }) }}" class="btn-lg btn-primary">acceder a l'offre</a>
+        {% if is_granted("ROLE_REDAC") %}
+        <a href="{{ path('GérerOffre', {'id' : offre.id }) }}" class="btn-lg btn-primary">acceder a l'offre</a>
         <!-- href = path('nom route', {'id' : offre.id} -->
+        {% endif %}
     </div>
         {% endfor %}
 

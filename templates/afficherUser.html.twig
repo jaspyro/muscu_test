@@ -22,7 +22,7 @@
         </thead>
         {% for user in user %}
             <tr class="text-center">
-                {% if user.roles == ["admin"] %}
+                {% if user.roles == ["ROLE_ADMIN"] %}
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
                 <td><p>|</p></td>
@@ -55,7 +55,7 @@
         </thead>
         {% for user in user %}
             <tr class="text-center">
-            {%  if (user.roles == ["redac"])  %}
+            {%  if (user.roles == ["ROLE_REDAC"])  %}
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
                 <td><p>|</p></td>
@@ -90,7 +90,7 @@
         </thead>
         {% for user in user %}
             <tr class="text-center">
-            {%  if (user.roles == ["user"])  %}
+            {%  if (user.roles == ["ROLE_USER"])  %}
                 <td>{{ user.username}}</td>
                 <td>{{ user.email }}</td>
                 <td><p>|</p></td>
